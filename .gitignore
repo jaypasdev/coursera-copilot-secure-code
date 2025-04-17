@@ -1,0 +1,48 @@
+# Folders
+bin/
+obj/
+
+# User-specific files
+*.swp
+*.sln
+*.vscode/
+.vscode/
+.idea/
+.env
+
+# Logs
+*.log
+
+# Debug/Release configurations
+appsettings.Development.json
+appsettings.Production.json
+
+# ASP.NET Core Identity DB Files
+*.mdf
+*.ldf
+
+# Visual Studio-specific files
+*.vs/
+.vs/
+
+# Other common temporary files
+Thumbs.db
+Desktop.ini
+
+# Generated files
+wwwroot/lib/
+
+# Test output files
+Tests/bin/
+Tests/obj/
+
+# Database files
+database.sql
+
+# Runtime-specific files
+*.runtimeconfig.json
+*.deps.json
+*.pdb
+
+# NuGet-related files
+*.nuget.cache
