@@ -4,7 +4,6 @@ obj/
 
 # User-specific files
 *.swp
-*.sln
 *.vscode/
 .vscode/
 .idea/
