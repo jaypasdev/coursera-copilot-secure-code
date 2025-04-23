@@ -4,6 +4,7 @@ Capstone project of module 4 from the Security and Authentication course from Mi
 ## Features
 - Go to  `http://localhost:<port>/Home/WebForm` to have a login form. The backend enables login validating against SQL injections and XSS (Activity: writing secure code using copilot)
 - Use requests.http to test User and Admin registration and login returning JWT tokens
+- Use requests.http to test the protected endpoints using Bearer tokens coming from the above logins
 
 ## Requirements
 - .NET 9.0 or later

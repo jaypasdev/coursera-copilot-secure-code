@@ -33,3 +33,11 @@ Content-Type: application/json
   "email": "user@example.com",
   "password": "UserPassword123"
 }
+
+### Accessible by User or Admin
+GET http://localhost:5184/protected/user-or-admin
+Authorization: Bearer <fake-jwt-for-user-or-admin>
+
+### Accessible by Admin Only
+GET http://localhost:5184/protected/admin-only
+Authorization: Bearer <fake-jwt-for-admin>
