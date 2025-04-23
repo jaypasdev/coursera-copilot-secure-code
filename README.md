@@ -15,3 +15,12 @@ Capstone project of module 4 from the Security and Authentication course from Mi
 2. Run the application using `dotnet run .\SecurityAndAuthentication.sln`.
 3. Run the unit tests using `dotnet test .\SecurityAndAuthentication.sln`.
 
+## Vulnerabilities identified by copilot during development
+1. Input Validation missing: Validate email and password inputs against  SQL injection, XSS.
+2. Password Security: Enforce password complexity rules.
+3. Role Management: Avoid default roles and require explicit role assignments.
+4. JWT Security: Use a strong secret key and validate token expiration.
+5. Access Control: Add explicit role checks for sensitive endpoints.
+7. Logging: Log failed login attempts for monitoring.
+8. Token Lifetime: Reduce token lifetime and implement refresh tokens.
+9. HTTPS: Enforce HTTPS for secure communication.

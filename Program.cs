@@ -40,6 +40,7 @@ app.MapGet("/WebForm", async context =>
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+//app.UseHttpsRedirection(); // Enforce HTTPS
 
 app.MapControllerRoute(
     name: "default",

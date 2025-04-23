@@ -46,6 +46,14 @@ namespace SafeVault.Controllers
         [HttpPost("/auth/register/user")]
         public IActionResult RegisterUser([FromBody] UserDto registrationDto)
         {
+            if (!InputValidation.IsValid(registrationDto.Email) || !InputValidation.IsValid(registrationDto.Password))
+            {
+                return BadRequest("Invalid input.");
+            }
+            if (registrationDto.Password.Length < 8 || !registrationDto.Password.Any(char.IsDigit) || !registrationDto.Password.Any(char.IsUpper))
+            {
+                return BadRequest("Password must be at least 8 characters long, contain a number, and an uppercase letter.");
+            }
             Console.WriteLine($"Registering user: {registrationDto.Email} with role: {registrationDto.Role}");
             if (_context.Users.Any(u => u.Email == registrationDto.Email))
             {
@@ -77,6 +85,10 @@ namespace SafeVault.Controllers
             // Default the role to "USER" if not provided
             loginDto.Role ??= "USER";
 
+            if (!InputValidation.IsValid(loginDto.Email) || !InputValidation.IsValid(loginDto.Password))
+            {
+                return BadRequest("Invalid input.");
+            }
             Console.WriteLine($"Logging in user: {loginDto.Email} with role: {loginDto.Role}");
             var user = _context.Users.FirstOrDefault(u => u.Email == loginDto.Email && u.Role == loginDto.Role);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
@@ -104,7 +116,7 @@ namespace SafeVault.Controllers
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(15), // Reduced token lifetime
                 signingCredentials: creds
             );
 
