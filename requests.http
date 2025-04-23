@@ -1,0 +1,35 @@
+### Register Admin
+POST http://localhost:5184/auth/register/admin
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "AdminPassword123"
+}
+
+### Register User
+POST http://localhost:5184/auth/register/user
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "UserPassword123"
+}
+
+### Login Admin
+POST http://localhost:5184/auth/login/admin
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "AdminPassword123"
+}
+
+### Login User
+POST http://localhost:5184/auth/login/user
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "UserPassword123"
+}

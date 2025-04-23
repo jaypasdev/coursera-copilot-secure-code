@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using SafeVault.Models;
 
 namespace SafeVault.Data
@@ -57,7 +58,7 @@ namespace SafeVault.Data
                             {
                                 return new User
                                 {
-                                    UserID = reader.GetInt32(0),
+                                    UserId = reader.GetInt32(0),
                                     Username = reader.GetString(1),
                                     Email = reader.GetString(2)
                                 };
@@ -93,7 +94,7 @@ namespace SafeVault.Data
                             {
                                 return new User
                                 {
-                                    UserID = reader.GetInt32(0),
+                                    UserId = reader.GetInt32(0),
                                     Username = reader.GetString(1),
                                     Email = reader.GetString(2)
                                 };
@@ -111,4 +112,22 @@ namespace SafeVault.Data
         }
     }
 
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(u => u.UserId);
+                entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
+                entity.HasIndex(u => u.Email).IsUnique();
+                entity.Property(u => u.PasswordHash).IsRequired();
+                entity.Property(u => u.Role).IsRequired();
+            });
+        }
+    }
 }

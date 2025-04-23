@@ -39,7 +39,7 @@ namespace SafeVault.Tests
 
             mockDatabase
                 .Setup(db => db.GetUserById(It.IsAny<int>()))
-                .Returns(new User { UserID = 1, Username = "TestUser", Email = "test@example.com" });
+                .Returns(new User { UserId = 1, Username = "TestUser", Email = "test@example.com" });
 
             int maliciousUserId = -1; // Simulate SQL injection attempt
 
@@ -48,7 +48,7 @@ namespace SafeVault.Tests
 
             // Assert
             Assert.IsNotNull(user);
-            Assert.AreEqual(1, user.UserID, "Method should return a valid user without executing malicious SQL.");
+            Assert.AreEqual(1, user.UserId, "Method should return a valid user without executing malicious SQL.");
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace SafeVault.Tests
 
             mockDatabase
                 .Setup(db => db.GetUserByEmail(It.IsAny<string>()))
-                .Returns(new User { UserID = 1, Username = "TestUser", Email = "test@example.com" });
+                .Returns(new User { UserId = 1, Username = "TestUser", Email = "test@example.com" });
 
             string maliciousEmail = "'; DROP TABLE Users; --";
 

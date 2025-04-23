@@ -1,5 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SafeVault.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+
+// Add configuration
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+// Configure in-memory database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("SafeVaultDb"));
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Welcome to SafeVault!");
