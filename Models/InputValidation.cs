@@ -6,17 +6,16 @@ namespace SafeVault.Models
     {
         public static bool IsValid(string input)
         {
-            if (string.IsNullOrEmpty(input))
-                return false;
+            if (string.IsNullOrWhiteSpace(input)) return false;
 
-            // Check for unsafe characters (SQL injection or XSS)
-            string unsafePattern = "[';<>]|--"; // Disallow unsafe characters and SQL injection patterns
-            if (Regex.IsMatch(input, unsafePattern))
-            {
-                return false;
-            }
+            // Check for SQL injection patterns
+            string[] sqlInjectionPatterns = { "'", "--", ";", "/*", "*/", "xp_" };
+            if (sqlInjectionPatterns.Any(pattern => input.Contains(pattern))) return false;
 
-            // Input is valid
+            // Check for XSS patterns
+            string[] xssPatterns = { "<script>", "</script>", "javascript:" };
+            if (xssPatterns.Any(pattern => input.Contains(pattern, StringComparison.OrdinalIgnoreCase))) return false;
+
             return true;
         }
     }

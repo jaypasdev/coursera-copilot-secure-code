@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SafeVault.Controllers
 {
@@ -98,6 +99,41 @@ namespace SafeVault.Controllers
 
             var token = GenerateJwtToken(user);
             return Ok(new { Token = token });
+        }
+
+        [HttpGet("/auth/user-by-username")]
+        [Authorize(Roles = "ADMIN")]
+        public IActionResult GetUserByUsername([FromQuery] string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest("Username is required.");
+            }
+
+            // Use raw SQL query to fetch email and role of the user by username
+            var user = _context.Users
+                .Where(u => u.Username == username)
+                .Select(u => new { u.Email, u.Role })
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("/auth/users")]
+        [Authorize(Roles = "ADMIN")]
+        public IActionResult GetAllUsers()
+        {
+            // Use raw SQL query to fetch email and role of all users
+            var users = _context.Users
+                .Select(u => new { u.Email, u.Role })
+                .ToList();
+
+            return Ok(users);
         }
 
         private string GenerateJwtToken(User user)

@@ -41,3 +41,11 @@ Authorization: Bearer <fake-jwt-for-user-or-admin>
 ### Accessible by Admin Only
 GET http://localhost:5184/protected/admin-only
 Authorization: Bearer <fake-jwt-for-admin>
+
+### Test prepared statement against sql injection
+GET http://localhost:5184/auth/user-by-username?username=exampleUser
+Authorization: Bearer <admin-jwt>
+
+### Test get users endpoint
+GET http://localhost:5184/auth/users
+Authorization: Bearer <admin-jwt>

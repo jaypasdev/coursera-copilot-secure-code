@@ -24,3 +24,4 @@ Capstone project of module 4 from the Security and Authentication course from Mi
 7. Logging: Log failed login attempts for monitoring.
 8. Token Lifetime: Reduce token lifetime and implement refresh tokens.
 9. HTTPS: Enforce HTTPS for secure communication.
+10. Use LINQ instead of prepared statements
